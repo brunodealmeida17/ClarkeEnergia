@@ -8,7 +8,7 @@ import App from './App';
 const API_URL = process.env.REACT_APP_API_URL;
 
 const client = new ApolloClient({
-  uri: API_URL,
+  uri: `${API_URL}/graphql`,
   cache: new InMemoryCache()
 });
 
