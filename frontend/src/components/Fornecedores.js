@@ -2,6 +2,8 @@ import React from 'react';
 import '../App.css';
 
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const AvaliacaoEstrelas = ({ avaliacao }) => {
     const totalEstrelas = 5;
     const estrelasCheias = Math.floor(avaliacao);
@@ -30,7 +32,7 @@ const Fornecedores = ({ fornecedores }) => (
             {fornecedores.map((fornecedor) => (
                 <div className="card" key={fornecedor.id}>
                     <img
-                        src={`http://localhost:5000${fornecedor.logo}`}
+                        src={`${API_URL}${fornecedor.logo}`}
                         alt={`${fornecedor.nome} logo`}
                         className="logo"
                     />
