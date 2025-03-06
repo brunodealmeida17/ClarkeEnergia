@@ -15,14 +15,13 @@ class Fornecedor(graphene.ObjectType):
     avaliacao_media = graphene.Float()
 
 class Query(graphene.ObjectType):
-    fornecedores = graphene.List(Fornecedor, limite_minimo_kwh=graphene.Int())
+    fornecedores = graphene.List(Fornecedor, limite_minimo_kwh=graphene.Int(required=True))
     fornecedor = graphene.Field(Fornecedor, id=graphene.Int(required=True))
 
-    def resolve_fornecedores(self, info, limite_minimo_kwh=None):
-        
-        if limite_minimo_kwh is not None:
-            return FornecedorModel.query.filter(FornecedorModel.limite_minimo_kwh > limite_minimo_kwh).all()
-        return FornecedorModel.query.all()  
+    def resolve_fornecedores(self, info, consumo_mensal):
+        return FornecedorModel.query.filter(
+            FornecedorModel.limite_minimo_kwh <= consumo_mensal
+        ).all()
 
     def resolve_fornecedor(self, info, id):
         return FornecedorModel.query.get(id)
